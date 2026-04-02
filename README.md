@@ -1,4 +1,5 @@
-India Tourism Trends Analysis (2010–2019)
+*India Tourism Trends Analysis (2010–2019)*
+
 📌 Project Overview
 This project provides a comprehensive analysis of tourism trends across various Indian monuments over a decade (2010–2019). By leveraging data manipulation, visualization, and machine learning, the project identifies seasonal patterns, growth trends, and the primary factors influencing visitor footfall.
 
