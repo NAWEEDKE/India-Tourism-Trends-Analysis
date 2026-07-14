@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Notes: India's Monument Tourism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,800;1,6..12,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.6.6/rough.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rough-notation/0.5.1/rough-notation.iife.js"></script>
+<style>
+  :root{
+    --paper:#F1E6D2;
+    --paper-deep:#E8D9BC;
+    --card:#FBF6E9;
+    --line:rgba(46,42,36,0.10);
+    --margin:rgba(194,59,34,0.30);
+    --ink:#2E2A24;
+    --ink-soft:#6b6355;
+    --peacock:#1F6F6B;
+    --peacock-deep:#154E4B;
+    --marigold:#E8A33D;
+    --stamp:#C23B22;
+    --font-display:'Caveat', cursive;
+    --font-body:'Nunito Sans', sans-serif;
+    --font-mono:'Space Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(var(--paper), var(--paper) 37px, var(--line) 38px),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    top:0; bottom:0; left:64px;
+    width:2px;
+    background:var(--margin);
+    z-index:0;
+    pointer-events:none;
+  }
+  @media (max-width:640px){ body::before{ left:28px; } }
+
+  .wrap{max-width:980px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
+  @media (max-width:640px){ .wrap{padding:0 20px 0 44px;} }
+
+  h1,h2,h3,.hand{font-family:var(--font-display); font-weight:700; color:var(--ink); line-height:1.05;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:var(--peacock-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:.5em;
+  }
+  .eyebrow::before{content:"✎"; font-size:1em;}
+
+  p{color:var(--ink-soft); line-height:1.65; font-size:1.02rem;}
+  .stat-num{font-family:var(--font-mono); font-weight:700;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:76px 0 40px;
+  }
+  .hero-top{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap;}
+  .hero-title{font-size:clamp(2.6rem, 7vw, 4.6rem); margin:.3em 0 .15em; max-width:11ch;}
+  .hero-sub{font-size:1.12rem; max-width:46ch; margin-top:0;}
+  .compass{flex:0 0 auto; width:120px; height:120px;}
+  .hero-stats{
+    display:flex; gap:28px; flex-wrap:wrap; margin-top:36px;
+  }
+  .hero-stat{font-family:var(--font-mono); font-size:.82rem; color:var(--ink-soft);}
+  .hero-stat b{display:block; font-family:var(--font-display); font-size:2.1rem; color:var(--ink); font-weight:700;}
+
+  /* ---------- DIVIDER ---------- */
+  .divider{width:100%; height:26px; margin:18px 0 6px; display:block;}
+
+  /* ---------- SECTION ---------- */
+  section{padding:46px 0 10px;}
+  .section-head{margin-bottom:26px;}
+  .section-head h2{font-size:clamp(1.9rem,4.2vw,2.6rem); margin:.15em 0 .1em;}
+  .section-head p{max-width:58ch;}
+
+  .card{
+    background:var(--card);
+    border:2px solid var(--ink);
+    border-radius:3px;
+    padding:22px 24px;
+    position:relative;
+    box-shadow:5px 5px 0 rgba(46,42,36,0.08);
+  }
+  .grid-2{display:grid; grid-template-columns:1.1fr .9fr; gap:22px;}
+  @media (max-width:760px){ .grid-2{grid-template-columns:1fr;} }
+
+  .chart-wrap svg{width:100%; height:auto; display:block;}
+  .chart-caption{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:10px;}
+
+  .callout{
+    display:inline-block;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.28rem;
+    color:var(--peacock-deep);
+  }
+
+  .pin-list{list-style:none; margin:0; padding:0;}
+  .pin-list li{
+    display:flex; align-items:baseline; gap:12px;
+    padding:9px 0; border-bottom:1px dashed var(--line);
+    font-family:var(--font-body); font-size:.98rem;
+  }
+  .pin-list li:last-child{border-bottom:none;}
+  .pin-rank{font-family:var(--font-mono); color:var(--marigold); font-weight:700; width:1.6em;}
+  .pin-val{margin-left:auto; font-family:var(--font-mono); color:var(--ink-soft); font-size:.85rem;}
+
+  .sticky{
+    background:var(--card);
+    border:2px solid var(--ink);
+    padding:16px 18px;
+    transform:rotate(var(--rot,-1.2deg));
+    box-shadow:4px 4px 0 rgba(46,42,36,0.10);
+  }
+  .sticky h3{font-size:1.3rem; margin:0 0 6px;}
+  .sticky p{font-size:.92rem; margin:0;}
+  .field-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;}
+  @media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+  footer{padding:60px 0 90px; text-align:left;}
+  footer .hand{font-size:1.6rem; color:var(--peacock-deep);}
+  footer p{font-size:.85rem;}
+
+  ::selection{background:var(--marigold); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="eyebrow">Field notes · India Archaeological Circles, 2010–2019</div>
+    <div class="hero-top">
+      <div>
+        <h1 class="hero-title">Chasing the Crowds</h1>
+        <p class="hero-sub">Ten years of monthly visitor logs from the Taj Mahal to sites most people have never heard of — read for the pattern hiding underneath the growth chart.</p>
+      </div>
+      <svg class="compass" id="compass-doodle" viewBox="0 0 120 120"></svg>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>17,280</b>monthly records</div>
+      <div class="hero-stat"><b>10</b>years tracked</div>
+      <div class="hero-stat"><b id="hs-domestic">94%</b>of visitors are domestic</div>
+    </div>
+  </header>
+
+  <svg class="divider" id="div-0" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ THE BIG REVEAL ============ -->
+  <section id="reveal">
+    <div class="section-head">
+      <div class="eyebrow">the headline</div>
+      <h2>It isn't about time. It's about <span class="callout" id="hl-identity">who you are</span>.</h2>
+      <p>A model that only knows a monument's name, its region, the month and the year can predict visitor counts with <b class="stat-num">97.6%</b> accuracy. Almost none of that power comes from the year.</p>
+    </div>
+    <div class="card">
+      <div class="chart-wrap"><svg id="chart-importance" viewBox="0 0 640 210"></svg></div>
+      <p class="chart-caption">RANDOM FOREST · FEATURE IMPORTANCE · WHAT PREDICTS MONTHLY VISITOR VOLUME</p>
+    </div>
+  </section>
+
+  <svg class="divider" id="div-1" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ SEASONALITY ============ -->
+  <section id="season">
+    <div class="section-head">
+      <div class="eyebrow">when to go</div>
+      <h2>Winter wins, <span id="hl-winter" class="callout">every single year</span></h2>
+      <p>Traffic climbs through autumn, peaks October–January, then falls off hard once the heat arrives. The pattern repeats so reliably across the decade that "month" is a more useful predictor than "year" ever was.</p>
+    </div>
+    <div class="card">
+      <div class="chart-wrap"><svg id="chart-season" viewBox="0 0 640 220"></svg></div>
+      <p class="chart-caption">RELATIVE VISITOR INTENSITY BY MONTH · PATTERN FROM 10-YEAR SEASONALITY ANALYSIS</p>
+    </div>
+  </section>
+
+  <svg class="divider" id="div-2" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ LEADERBOARD ============ -->
+  <section id="leaderboard">
+    <div class="section-head">
+      <div class="eyebrow">the leaderboard</div>
+      <h2>Ten sites carry the whole country</h2>
+      <p>Rank every monument by ten-year visitor totals and the list falls off a cliff almost immediately — a classic 80/20 pattern, just steeper.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="chart-wrap"><svg id="chart-monuments" viewBox="0 0 500 320"></svg></div>
+        <p class="chart-caption">TOP 10 MONUMENTS · APPROX. 10-YEAR DOMESTIC VISITOR TOTALS</p>
+      </div>
+      <div class="card">
+        <ol class="pin-list" id="monument-list"></ol>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divider" id="div-3" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ CIRCLES ============ -->
+  <section id="circles">
+    <div class="section-head">
+      <div class="eyebrow">home turf</div>
+      <h2>Agra alone outweighs the next <span id="hl-agra" class="callout">two circles combined</span></h2>
+      <p>India's monuments are grouped into regional "Circles." A handful of circles — anchored by one or two superstar sites each — absorb most of the traffic nationwide.</p>
+    </div>
+    <div class="card">
+      <div class="chart-wrap"><svg id="chart-circles" viewBox="0 0 640 260"></svg></div>
+      <p class="chart-caption">TOP 10 CIRCLES · APPROX. 10-YEAR TOTAL VISITORS (DOMESTIC + FOREIGN)</p>
+    </div>
+  </section>
+
+  <svg class="divider" id="div-4" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ DOMESTIC VS FOREIGN ============ -->
+  <section id="mix">
+    <div class="section-head">
+      <div class="eyebrow">who's actually visiting</div>
+      <h2>This is a <span id="hl-domestic-story" class="callout">domestic story</span>, not a global one</h2>
+      <p>Nine or ten out of every ten visitors are domestic travelers. The decade's growth curve is almost entirely a story about more Indians visiting their own heritage sites — foreign arrivals stayed comparatively flat.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card" style="display:flex; align-items:center; justify-content:center;">
+        <div class="chart-wrap" style="max-width:260px;"><svg id="chart-donut" viewBox="0 0 240 240"></svg></div>
+      </div>
+      <div class="card">
+        <p style="margin-top:0;"><span class="stat-num" style="font-size:1.1rem;">Mean monthly visitors per site</span></p>
+        <ul class="pin-list">
+          <li>Domestic <span class="pin-val">≈ 20,145 / month</span></li>
+          <li>Foreign <span class="pin-val">≈ 1,275 / month</span></li>
+        </ul>
+        <p style="margin-top:14px; font-size:.9rem;">Model accuracy on a fair, time-based test (trained on 2010–2017, tested on 2018–2019, never mixing years): <b class="stat-num">R² 0.9755</b>, average error <b class="stat-num">≈2,616 visitors</b>/month.</p>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divider" id="div-5" viewBox="0 0 900 26"></svg>
+
+  <!-- ============ FIELD NOTES / RECOMMENDATIONS ============ -->
+  <section id="notes">
+    <div class="section-head">
+      <div class="eyebrow">field notes</div>
+      <h2>What this actually means</h2>
+    </div>
+    <div class="field-grid">
+      <div class="sticky" style="--rot:-1.4deg;">
+        <h3>Plan for the superstars</h3>
+        <p>Crowd control, ticketing capacity, and infrastructure spend should follow the Pareto curve — a small set of sites will always absorb most footfall, regardless of national campaigns.</p>
+      </div>
+      <div class="sticky" style="--rot:1.1deg;">
+        <h3>Use the calendar, not the crystal ball</h3>
+        <p>The model barely uses "year" to predict traffic. Season is a far more reliable planning lever than trying to forecast growth.</p>
+      </div>
+      <div class="sticky" style="--rot:0.8deg;">
+        <h3>Foreign growth needs a different play</h3>
+        <p>Since organic growth is domestic-driven, reaching international travelers likely requires deliberately marketing the "foreign favorite" sites, not the already-saturated top domestic draws.</p>
+      </div>
+      <div class="sticky" style="--rot:-0.9deg;">
+        <h3>There's more signal to add</h3>
+        <p>Weather, public holidays, and event calendars could sharpen the model further — Year and Month alone already carry real signal; local context would add more.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <svg class="divider" id="div-6" viewBox="0 0 900 26"></svg>
+    <p class="hand">— field notes from a decade of footfall</p>
+    <p>Source: India Archaeological Circle monthly visitor records, 2010–2019 · Random Forest regression, time-based validation · Built with a lot of pandas 🐼</p>
+  </footer>
+
+</div>
+
+<script>
+const rcOpts = { roughness: 1.6, bowing: 1.2 };
+const INK = '#2E2A24';
+const PEACOCK = '#1F6F6B';
+const MARIGOLD = '#E8A33D';
+const STAMP = '#C23B22';
+
+function svgOf(id){ return document.getElementById(id); }
+
+/* ---------------- divider ---------------- */
+function drawDivider(id){
+  const svg = svgOf(id);
+  const rc = rough.svg(svg);
+  const w = 900;
+  const d = 'M5 13 ' + Array.from({length:30}, (_,i)=>{
+      const x = 5 + i*30.6;
+      const y = i%2===0 ? 6 : 20;
+      return `Q ${x+15} ${y} ${x+30.6} 13`;
+    }).join(' ');
+  const node = rc.path(d, { stroke: INK, strokeWidth: 1.6, roughness: 1.4, bowing: 0.5 });
+  svg.appendChild(node);
+}
+['div-0','div-1','div-2','div-3','div-4','div-5','div-6'].forEach(drawDivider);
+
+/* ---------------- compass doodle ---------------- */
+(function(){
+  const svg = svgOf('compass-doodle');
+  const rc = rough.svg(svg);
+  svg.appendChild(rc.circle(60,60,96,{stroke:INK, strokeWidth:2, roughness:1.8, fill:'#FBF6E9', fillStyle:'solid'}));
+  svg.appendChild(rc.line(60,14,60,106,{stroke:INK, strokeWidth:1.2, roughness:1.6}));
+  svg.appendChild(rc.line(14,60,106,60,{stroke:INK, strokeWidth:1.2, roughness:1.6}));
+  svg.appendChild(rc.polygon([[60,20],[68,60],[60,52]],{fill:STAMP, fillStyle:'solid', stroke:STAMP, roughness:1.6}));
+  svg.appendChild(rc.polygon([[60,100],[68,60],[60,68]],{fill:INK, fillStyle:'solid', stroke:INK, roughness:1.6}));
+  const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t.setAttribute('x',60); t.setAttribute('y',12); t.setAttribute('text-anchor','middle');
+  t.setAttribute('font-family','Space Mono'); t.setAttribute('font-size','9'); t.setAttribute('fill',INK);
+  t.textContent = 'N';
+  svg.appendChild(t);
+})();
+
+/* ---------------- generic rough bar chart (horizontal) ---------------- */
+function roughBarsH(id, data, {color=PEACOCK, valueFmt=(v)=>v} = {}){
+  const svg = svgOf(id);
+  const rc = rough.svg(svg);
+  const vb = svg.viewBox.baseVal;
+  const W = vb.width, H = vb.height;
+  const leftPad = 150, rightPad = 70, top = 14, bottom = 14;
+  const max = Math.max(...data.map(d=>d.value));
+  const rowH = (H - top - bottom) / data.length;
+  data.forEach((d,i)=>{
+    const y = top + i*rowH + rowH*0.22;
+    const barH = rowH*0.56;
+    const barW = (W - leftPad - rightPad) * (d.value/max);
+    svg.appendChild(rc.rectangle(leftPad, y, Math.max(barW,2), barH, {
+      fill:color, fillStyle:'hachure', hachureGap:5, fillWeight:2.2,
+      stroke:INK, strokeWidth:1.5, roughness:1.7
+    }));
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', leftPad-10); label.setAttribute('y', y+barH*0.72);
+    label.setAttribute('text-anchor','end'); label.setAttribute('font-family','Nunito Sans');
+    label.setAttribute('font-size','13'); label.setAttribute('fill',INK);
+    label.textContent = d.label;
+    svg.appendChild(label);
+    const val = document.createElementNS('http://www.w3.org/2000/svg','text');
+    val.setAttribute('x', leftPad+barW+10); val.setAttribute('y', y+barH*0.72);
+    val.setAttribute('font-family','Space Mono'); val.setAttribute('font-size','11.5'); val.setAttribute('fill','#6b6355');
+    val.textContent = valueFmt(d.value);
+    svg.appendChild(val);
+  });
+}
+
+/* ---------------- generic rough bar chart (vertical) ---------------- */
+function roughBarsV(id, data, {color=PEACOCK} = {}){
+  const svg = svgOf(id);
+  const rc = rough.svg(svg);
+  const vb = svg.viewBox.baseVal;
+  const W = vb.width, H = vb.height;
+  const top = 14, bottom = 46, leftPad = 16, rightPad = 16;
+  const max = Math.max(...data.map(d=>d.value));
+  const colW = (W - leftPad - rightPad) / data.length;
+  data.forEach((d,i)=>{
+    const barH = (H - top - bottom) * (d.value/max);
+    const x = leftPad + i*colW + colW*0.2;
+    const barW = colW*0.6;
+    const y = H - bottom - barH;
+    svg.appendChild(rc.rectangle(x, y, barW, barH, {
+      fill:color, fillStyle:'hachure', hachureGap:4.5, fillWeight:2,
+      stroke:INK, strokeWidth:1.5, roughness:1.7
+    }));
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', x+barW/2); label.setAttribute('y', H-bottom+16);
+    label.setAttribute('text-anchor','middle'); label.setAttribute('font-family','Space Mono');
+    label.setAttribute('font-size','10.5'); label.setAttribute('fill',INK);
+    label.textContent = d.label;
+    svg.appendChild(label);
+  });
+}
+
+/* ---------------- rough donut ---------------- */
+function roughDonut(id, segments){
+  const svg = svgOf(id);
+  const rc = rough.svg(svg);
+  const cx=120, cy=120, r=88;
+  let start = -Math.PI/2;
+  const total = segments.reduce((a,s)=>a+s.value,0);
+  segments.forEach(seg=>{
+    const angle = (seg.value/total) * Math.PI*2;
+    const end = start+angle;
+    const x1 = cx + r*Math.cos(start), y1 = cy + r*Math.sin(start);
+    const x2 = cx + r*Math.cos(end), y2 = cy + r*Math.sin(end);
+    const large = angle > Math.PI ? 1 : 0;
+    const d = `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z`;
+    svg.appendChild(rc.path(d, {fill:seg.color, fillStyle:'hachure', hachureGap:5, fillWeight:2.2, stroke:INK, strokeWidth:1.6, roughness:1.6}));
+    start = end;
+  });
+  svg.appendChild(rc.circle(cx,cy,86,{stroke:INK, strokeWidth:2, roughness:1.8, fill:'#F1E6D2', fillStyle:'solid'}));
+  const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t.setAttribute('x',cx); t.setAttribute('y',cy-2); t.setAttribute('text-anchor','middle');
+  t.setAttribute('font-family','Caveat'); t.setAttribute('font-weight','700'); t.setAttribute('font-size','30'); t.setAttribute('fill',INK);
+  t.textContent = Math.round(segments[0].value/total*100)+'%';
+  svg.appendChild(t);
+  const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t2.setAttribute('x',cx); t2.setAttribute('y',cy+18); t2.setAttribute('text-anchor','middle');
+  t2.setAttribute('font-family','Space Mono'); t2.setAttribute('font-size','10'); t2.setAttribute('fill','#6b6355');
+  t2.textContent = 'DOMESTIC';
+  svg.appendChild(t2);
+}
+
+/* ---------------- DATA ---------------- */
+const importanceData = [
+  {label:'Monument (which site)', value:0.7317},
+  {label:'Circle (which region)', value:0.1853},
+  {label:'Month (season)', value:0.0563},
+  {label:'Year', value:0.0267},
+];
+roughBarsH('chart-importance', importanceData, {color:PEACOCK, valueFmt:v=>(v*100).toFixed(1)+'%'});
+
+const seasonData = [
+  {label:'Jan', value:96},{label:'Feb', value:78},{label:'Mar', value:58},
+  {label:'Apr', value:38},{label:'May', value:30},{label:'Jun', value:28},
+  {label:'Jul', value:34},{label:'Aug', value:36},{label:'Sep', value:44},
+  {label:'Oct', value:70},{label:'Nov', value:88},{label:'Dec', value:100},
+];
+roughBarsV('chart-season', seasonData, {color:MARIGOLD});
+
+const monumentData = [
+  {label:'Taj Mahal', value:35.5},{label:'Red Fort', value:17.5},
+  {label:'Qutub Minar', value:16.5},{label:'Sun Temple, Konark', value:15.5},
+  {label:'Golconda', value:13.1},{label:'Agra Fort', value:13.0},
+  {label:'Mamallapuram', value:10.1},{label:'Ellora Caves', value:10.0},
+  {label:'Charminar', value:9.1},{label:'Shaniwarwada', value:9.0},
+];
+roughBarsH('chart-monuments', monumentData, {color:STAMP, valueFmt:v=>v.toFixed(1)+'M'});
+const listEl = document.getElementById('monument-list');
+monumentData.forEach((d,i)=>{
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="pin-rank">${i+1}</span> ${d.label} <span class="pin-val">~${d.value.toFixed(1)}M</span>`;
+  listEl.appendChild(li);
+});
+
+const circleData = [
+  {label:'Agra', value:72},{label:'Delhi', value:54},{label:'Mumbai', value:32},
+  {label:'Aurangabad', value:28.5},{label:'Hyderabad', value:23},{label:'Bhubaneswar', value:19},
+  {label:'Dharwad', value:14.5},{label:'Bhopal', value:13},{label:'Chennai', value:11.5},
+  {label:'Banglore', value:11},
+];
+roughBarsH('chart-circles', circleData, {color:PEACOCK, valueFmt:v=>v.toFixed(1)+'M'});
+
+roughDonut('chart-donut', [
+  {value:94, color:PEACOCK},
+  {value:6, color:MARIGOLD},
+]);
+
+/* ---------------- annotations on scroll ---------------- */
+window.addEventListener('load', () => {
+  const targets = [
+    ['hl-identity', {type:'underline', color:STAMP, iterations:2}],
+    ['hl-winter', {type:'highlight', color:'#F3C978', animationDuration:900}],
+    ['hl-agra', {type:'circle', color:STAMP, padding:6}],
+    ['hl-domestic-story', {type:'underline', color:PEACOCK, iterations:2}],
+  ];
+  const annos = targets.map(([id,opts]) => RoughNotation.annotate(document.getElementById(id), opts));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx = targets.findIndex(t=>t[0]===e.target.id);
+        if(idx>-1){ annos[idx].show(); io.unobserve(e.target); }
+      }
+    });
+  }, {threshold:0.6});
+  targets.forEach(([id])=> io.observe(document.getElementById(id)));
+});
+</script>
+
+</body>
+</html>

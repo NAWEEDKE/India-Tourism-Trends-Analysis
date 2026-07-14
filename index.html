@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Tourism Field Notes - Home</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- FontAwesome for clean icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Notebook Container -->
+    <div class="notebook" id="notebook-main">
+
+        <!-- Spiral Spine Background -->
+        <div class="notebook-spine"></div>
+
+        <!-- Spiral Rings -->
+        <div class="notebook-rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+        </div>
+
+        <!-- Navigation Divider Tabs (Right edge) -->
+        <div class="notebook-tabs">
+            <a href="index.html" class="tab-link tab-home active" id="link-home">
+                <i class="fa-solid fa-book-open"></i> Overview
+            </a>
+            <a href="seasonality.html" class="tab-link tab-season" id="link-season">
+                <i class="fa-solid fa-calendar-days"></i> Seasonality
+            </a>
+            <a href="monuments.html" class="tab-link tab-monuments" id="link-monuments">
+                <i class="fa-solid fa-landmark"></i> Monuments
+            </a>
+            <a href="circles.html" class="tab-link tab-circles" id="link-circles">
+                <i class="fa-solid fa-circle-nodes"></i> Circles
+            </a>
+            <a href="predict.html" class="tab-link tab-predict" id="link-predict">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Predict
+            </a>
+            <a href="notebook.html" class="tab-link tab-notebook" id="link-notebook">
+                <i class="fa-solid fa-code"></i> Notebook
+            </a>
+            <a href="guide.html" class="tab-link tab-guide" id="link-guide">
+                <i class="fa-solid fa-compass"></i> Guide
+            </a>
+        </div>
+
+        <!-- Notebook Ruled/Graph Paper Content -->
+        <main class="paper-content" id="main-paper">
+
+            <!-- Journal Title Header -->
+            <header class="header-actions">
+                <div>
+                    <h1 class="journal-title">India Tourism Field Notes</h1>
+                    <div class="journal-subtitle">A 10-Year Statistical Journal (2010 - 2019)</div>
+                </div>
+                <div class="handwritten-note">
+                    Date: July 2026 | Researcher: Model
+                </div>
+            </header>
+
+            <!-- Summary Stats Cards Grid -->
+            <section class="summary-grid">
+                <div class="specimen-card summary-card">
+                    <div class="tape"></div>
+                    <span class="summary-label">Observations</span>
+                    <span class="summary-val" id="m-records">-</span>
+                    <span class="summary-sub">monthly site records</span>
+                </div>
+
+                <div class="specimen-card summary-card">
+                    <div class="tape"></div>
+                    <span class="summary-label">Domestic Visits</span>
+                    <span class="summary-val" id="m-domestic">-</span>
+                    <span class="summary-sub">total 10-year count</span>
+                </div>
+
+                <div class="specimen-card summary-card">
+                    <div class="tape"></div>
+                    <span class="summary-label">Foreign Visits</span>
+                    <span class="summary-val" id="m-foreign">-</span>
+                    <span class="summary-sub">total 10-year count</span>
+                </div>
+
+                <div class="specimen-card summary-card">
+                    <div class="tape"></div>
+                    <span class="summary-label">Domestic Ratio</span>
+                    <span class="summary-val" id="m-ratio">-</span>
+                    <span class="summary-sub">percent of all visits</span>
+                </div>
+            </section>
+
+            <!-- Visualizations Row -->
+            <div class="vis-row">
+
+                <!-- Line Chart Component -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Yearly Visitor Trends</h2>
+                        <span style="font-family: var(--font-hand); color: var(--accent-blue); font-size: 1.1rem;">
+                            Steady growth across the decade
+                        </span>
+                    </div>
+                    <div style="flex: 1; position: relative; min-height: 280px;">
+                        <canvas id="yearlyTrendsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Side Panel (ML Feature Importance) -->
+                <div class="chart-container" style="background-color: #fafcfb;">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Drivers of Tourism</h2>
+                        <i class="fa-solid fa-gears" style="color: var(--ink-light);"></i>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--ink-medium); line-height: 1.4;">
+                        Predictive machine learning models indicate which features contribute most to predicting monthly
+                        visitor volumes.
+                    </p>
+
+                    <ul class="importance-list" id="importance-list">
+                        <!-- Populated by app.js -->
+                    </ul>
+
+                    <div style="margin-top: auto; padding-top: 15px; border-top: 1px dashed var(--paper-line);">
+                        <p
+                            style="font-family: var(--font-hand); color: var(--accent-terracotta); font-size: 1.25rem; line-height: 1.2; transform: rotate(1deg);">
+                            Note: Monument location dictates 73%+ of visitor volume, dwarfing all other components.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Script loading -->
+    <script src="app.js"></script>
+</body>
+
+</html>

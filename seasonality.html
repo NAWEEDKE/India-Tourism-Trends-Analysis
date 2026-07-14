@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Tourism Field Notes - Seasonality</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Notebook Container -->
+    <div class="notebook">
+
+        <!-- Spiral Spine Background -->
+        <div class="notebook-spine"></div>
+
+        <!-- Spiral Rings -->
+        <div class="notebook-rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+        </div>
+
+        <!-- Navigation Divider Tabs -->
+        <div class="notebook-tabs">
+            <a href="index.html" class="tab-link tab-home" id="link-home">
+                <i class="fa-solid fa-book-open"></i> Overview
+            </a>
+            <a href="seasonality.html" class="tab-link tab-season active" id="link-season">
+                <i class="fa-solid fa-calendar-days"></i> Seasonality
+            </a>
+            <a href="monuments.html" class="tab-link tab-monuments" id="link-monuments">
+                <i class="fa-solid fa-landmark"></i> Monuments
+            </a>
+            <a href="circles.html" class="tab-link tab-circles" id="link-circles">
+                <i class="fa-solid fa-circle-nodes"></i> Circles
+            </a>
+            <a href="predict.html" class="tab-link tab-predict" id="link-predict">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Predict
+            </a>
+            <a href="notebook.html" class="tab-link tab-notebook" id="link-notebook">
+                <i class="fa-solid fa-code"></i> Notebook
+            </a>
+            <a href="guide.html" class="tab-link tab-guide" id="link-guide">
+                <i class="fa-solid fa-compass"></i> Guide
+            </a>
+        </div>
+
+        <!-- Notebook Ruled/Graph Paper Content -->
+        <main class="paper-content">
+
+            <!-- Journal Title Header -->
+            <header class="header-actions">
+                <div>
+                    <h1 class="journal-title">Seasonality Matrix</h1>
+                    <div class="journal-subtitle">Mapping monthly fluctuations and climate effects</div>
+                </div>
+                <div class="handwritten-note">
+                    High Peaks in Nov-Feb
+                </div>
+            </header>
+
+            <div class="vis-row seasonality-row">
+
+                <!-- Left Column: Calendar Heatmap -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Domestic Visitor Heatmap (10 Years)</h2>
+                        <i class="fa-solid fa-table-cells" style="color: var(--ink-light);"></i>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--ink-medium);">
+                        Hover over individual cells to view absolute monthly visitor counts. Shading corresponds to
+                        visitor density.
+                    </p>
+
+                    <!-- Heatmap Grid Container -->
+                    <div class="heatmap-container">
+                        <div class="heatmap-grid" id="heatmap-grid">
+                            <!-- Populated dynamically by app.js -->
+                        </div>
+
+                        <!-- Heatmap Legend -->
+                        <div class="heatmap-legend">
+                            <span>Fewer Visitors</span>
+                            <div class="legend-box scale-0"></div>
+                            <div class="legend-box scale-1"></div>
+                            <div class="legend-box scale-2"></div>
+                            <div class="legend-box scale-3"></div>
+                            <div class="legend-box scale-4"></div>
+                            <div class="legend-box scale-5"></div>
+                            <div class="legend-box scale-6"></div>
+                            <span>More Visitors</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Monthly Average Bar Chart (Clean layout tracking) -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Aggregated Monthly Seasonality</h2>
+                        <i class="fa-solid fa-chart-column" style="color: var(--ink-light);"></i>
+                    </div>
+                    <div style="flex: 1; position: relative; min-height: 300px;">
+                        <canvas id="seasonalityBarChart"></canvas>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--paper-line);">
+                        <p
+                            style="font-family: var(--font-hand); color: var(--accent-terracotta); font-size: 1.3rem; line-height: 1.25; transform: rotate(-1deg);">
+                            Field Note: Extreme summer drop (April-June) is climate-driven. The monsoons in July
+                            trigger a minor rebound before the massive winter peak.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
