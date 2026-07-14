@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Tourism Field Notes - Monuments</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Notebook Container -->
+    <div class="notebook">
+        
+        <!-- Spiral Spine Background -->
+        <div class="notebook-spine"></div>
+        
+        <!-- Spiral Rings -->
+        <div class="notebook-rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+        </div>
+        
+        <!-- Navigation Divider Tabs -->
+        <div class="notebook-tabs">
+            <a href="index.html" class="tab-link tab-home" id="link-home">
+                <i class="fa-solid fa-book-open"></i> Overview
+            </a>
+            <a href="seasonality.html" class="tab-link tab-season" id="link-season">
+                <i class="fa-solid fa-calendar-days"></i> Seasonality
+            </a>
+            <a href="monuments.html" class="tab-link tab-monuments active" id="link-monuments">
+                <i class="fa-solid fa-landmark"></i> Monuments
+            </a>
+            <a href="circles.html" class="tab-link tab-circles" id="link-circles">
+                <i class="fa-solid fa-circle-nodes"></i> Circles
+            </a>
+            <a href="predict.html" class="tab-link tab-predict" id="link-predict">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Predict
+            </a>
+            <a href="notebook.html" class="tab-link tab-notebook" id="link-notebook">
+                <i class="fa-solid fa-code"></i> Notebook
+            </a>
+            <a href="guide.html" class="tab-link tab-guide" id="link-guide">
+                <i class="fa-solid fa-compass"></i> Guide
+            </a>
+        </div>
+        
+        <!-- Notebook Ruled/Graph Paper Content -->
+        <main class="paper-content">
+            
+            <!-- Journal Title Header -->
+            <header class="header-actions" style="margin-bottom: 20px;">
+                <div>
+                    <h1 class="journal-title">Specimen Catalogue</h1>
+                    <div class="journal-subtitle">Detailed profiles and field sketches of major monuments</div>
+                </div>
+                
+                <!-- Filters and Search Area -->
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <!-- Search Input -->
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="search-monument" class="search-input" placeholder="Search by name or circle...">
+                    </div>
+                    
+                    <!-- Sort Select -->
+                    <select id="sort-monument" class="filter-select">
+                        <option value="total">Sort by: Total Visitors</option>
+                        <option value="domestic">Sort by: Domestic Visitors</option>
+                        <option value="foreign">Sort by: Foreign Visitors</option>
+                        <option value="name">Sort by: Alphabetical</option>
+                    </select>
+                </div>
+            </header>
+            
+            <!-- Gallery Grid of Doodles/Monuments -->
+            <section class="doodles-grid" id="doodles-grid">
+                <!-- Populated dynamically by app.js -->
+            </section>
+            
+            <!-- Specimen Detail Popup (Modal) -->
+            <div class="specimen-modal" id="specimen-modal">
+                <div class="modal-sheet">
+                    <button class="modal-close" aria-label="Close details">&times;</button>
+                    
+                    <!-- Left Column (Doodle & Archeology Data) -->
+                    <div class="modal-left">
+                        <div class="modal-doodle-container">
+                            <img id="pop-doodle" src="http://localhost:5050/doodles/placeholder.png" alt="Monument Doodle">
+                        </div>
+                        
+                        <span class="specimen-label" id="pop-circle">Agra Circle</span>
+                        <h2 class="journal-title" id="pop-title" style="font-size: 1.8rem; line-height: 1.2; margin-bottom: 15px;">Taj Mahal</h2>
+                        
+                        <table class="specimen-meta-table">
+                            <tr>
+                                <td class="meta-label">Est. Period</td>
+                                <td class="meta-val" id="pop-period">-</td>
+                            </tr>
+                            <tr>
+                                <td class="meta-label">Commissioned By</td>
+                                <td class="meta-val" id="pop-builder">-</td>
+                            </tr>
+                            <tr>
+                                <td class="meta-label">Architectural Style</td>
+                                <td class="meta-val" id="pop-style">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Right Column (Stats & Researcher Notes) -->
+                    <div class="modal-right">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 10px; border-bottom: 1px solid var(--paper-line); padding-bottom: 5px;">
+                            10-Year Visitor Profile (2010 - 2019)
+                        </h3>
+                        
+                        <table class="specimen-meta-table" style="margin-top: 0; margin-bottom: 15px;">
+                            <tr>
+                                <td class="meta-label">Domestic Visits</td>
+                                <td class="meta-val" id="pop-domestic" style="text-align: right;">-</td>
+                            </tr>
+                            <tr>
+                                <td class="meta-label">Foreign Visits</td>
+                                <td class="meta-val" id="pop-foreign" style="text-align: right;">-</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--ink-dark); font-weight: bold;">
+                                <td class="meta-label" style="color: var(--ink-dark);">Total Volume</td>
+                                <td class="meta-val" id="pop-total" style="text-align: right; color: var(--ink-dark);">-</td>
+                            </tr>
+                        </table>
+                        
+                        <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 5px;">
+                            Field Description
+                        </h3>
+                        <p id="pop-desc" style="font-size: 0.85rem; color: var(--ink-medium); line-height: 1.4; margin-bottom: 15px; text-align: justify;">
+                            -
+                        </p>
+                        
+                        <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 5px;">
+                            Field Annotations
+                        </h3>
+                        <ul id="pop-notes" style="list-style: none; padding-left: 5px;">
+                            <!-- Populated dynamically by app.js -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+        
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
