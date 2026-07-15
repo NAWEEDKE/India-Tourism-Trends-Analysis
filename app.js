@@ -689,6 +689,7 @@ function initCirclesPage(data) {
 // ── 5. ML PREDICTION PANEL ────────────────────────────────────────────────────
 const ML_API = 'http://localhost:5050';
 let predictChart = null;
+let isSimulatedMode = false;
 
 async function initPredictPage() {
     const statusEl = document.getElementById('predict-status');
@@ -705,11 +706,21 @@ async function initPredictPage() {
         // Populate monument dropdown
         const meta = await fetch(`${ML_API}/metadata`).then(r => r.json());
         monSelect.innerHTML = meta.monuments.map(m => `<option value="${m}">${m}</option>`).join('');
+        isSimulatedMode = false;
 
     } catch (e) {
-        statusEl.innerHTML = `<span style="color:#c85a49">ML API offline — run <code>python model_api.py</code> in the project folder</span>`;
-        if (runBtn) runBtn.disabled = true;
-        return;
+        statusEl.innerHTML = `<span style="color:#c85a49; font-size: 0.85em;">Local ML API unreachable (Mixed Content / Not Running). Using simulated predictions.</span>`;
+        // Populate dropdown from our static JSON file if available
+        if (globalTourismData && globalTourismData.monuments) {
+            const sorted = [...globalTourismData.monuments].sort((a,b) => (b.domestic || b.d || 0) - (a.domestic || a.d || 0)).slice(0, 50);
+            monSelect.innerHTML = sorted.map(m => {
+                const name = m.name || m.n;
+                return `<option value="${name}">${name}</option>`;
+            }).join('');
+        } else {
+            monSelect.innerHTML = `<option value="Taj Mahal">Taj Mahal</option><option value="Qutub Minar">Qutub Minar</option>`;
+        }
+        isSimulatedMode = true;
     }
 
     // Handle Predict button click
@@ -723,25 +734,49 @@ async function initPredictPage() {
             runBtn.disabled = true;
 
             try {
-                // Get full year trend (12 months)
-                const res = await fetch(`${ML_API}/trend`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ monument, year })
-                });
-                const data = await res.json();
+                let data;
+                
+                if (isSimulatedMode) {
+                    // Simulate prediction with realistic curve
+                    await new Promise(r => setTimeout(r, 800)); // fake delay
+                    const baseMultiplier = 1 + ((year - 2019) * 0.05);
+                    let histDom = 1000000; // default fallback
+                    if (globalTourismData && globalTourismData.monuments) {
+                        const monData = globalTourismData.monuments.find(m => (m.name || m.n) === monument);
+                        if (monData) histDom = monData.domestic || monData.d || 1000000;
+                    }
+                    const avgMonthly = (histDom / 10) / 12 * baseMultiplier; // 10 years avg
+                    
+                    // Add seasonality curve (peak in winter/spring)
+                    const seasonality = [1.2, 1.15, 1.0, 0.6, 0.55, 0.6, 0.8, 0.85, 0.8, 1.1, 1.3, 1.4];
+                    const predicted_domestic = seasonality.map(s => Math.round(avgMonthly * s * (0.9 + Math.random()*0.2)));
+                    
+                    data = {
+                        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        predicted_domestic: predicted_domestic
+                    };
+                } else {
+                    // Get full year trend (12 months) from real API
+                    const res = await fetch(`${ML_API}/trend`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ monument, year })
+                    });
+                    data = await res.json();
+                }
 
                 const totalDom = data.predicted_domestic.reduce((a, b) => a + b, 0);
                 const peak = Math.max(...data.predicted_domestic);
                 const peakMon = data.months[data.predicted_domestic.indexOf(peak)];
 
                 // Estimate foreign visitors using historical domestic:foreign ratio
-                const monData = globalTourismData.monuments.find(m =>
-                    (m.name || m.n) === monument
-                );
-                const histDom = monData ? (monData.domestic || monData.d || 1) : 1;
-                const histFor = monData ? (monData.foreign || monData.f || 0) : 0;
-                const foreignRatio = histDom > 0 ? (histFor / histDom) : 0.05;
+                let histDomForRatio = 1, histForRatio = 0;
+                if (globalTourismData && globalTourismData.monuments) {
+                    const monData = globalTourismData.monuments.find(m => (m.name || m.n) === monument);
+                    histDomForRatio = monData ? (monData.domestic || monData.d || 1) : 1;
+                    histForRatio = monData ? (monData.foreign || monData.f || 0) : 0;
+                }
+                const foreignRatio = histDomForRatio > 0 ? (histForRatio / histDomForRatio) : 0.05;
 
                 // Apply ratio to each month's domestic prediction
                 const predictedForeign = data.predicted_domestic.map(d =>
@@ -801,7 +836,7 @@ async function initPredictPage() {
                                 }
                             ]
                         },
-                        options: pencilChartStyles.getOptions(`${monument} — ${year} Forecast`)
+                        options: pencilChartStyles.getOptions(`${monument} — ${year} Forecast${isSimulatedMode ? ' (Simulated)' : ''}`)
                     });
                 }
 
