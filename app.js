@@ -480,12 +480,12 @@ function initMonumentsPage(data) {
 
             const hasDoodle = data.doodles && data.doodles[monName] !== undefined;
             const doodleShortName = hasDoodle ? data.doodles[monName].short_name : (circleDoodleMap[monCircle] || 'placeholder');
-            const imgSrc = `http://localhost:5050/doodles/${doodleShortName}.png`;
+            const imgSrc = `./doodles/${doodleShortName}.png`;
 
             card.innerHTML = `
                 <div class="tape"></div>
                 <div class="doodle-image-container">
-                    <img src="${imgSrc}" alt="${monName}" onerror="this.src='http://localhost:5050/doodles/placeholder.png'">
+                    <img src="${imgSrc}" alt="${monName}" onerror="this.src='./doodles/placeholder.png'">
                 </div>
                 <h3 class="doodle-title">${monName}</h3>
                 <p class="doodle-subtitle">${monCircle} Circle</p>
@@ -566,7 +566,7 @@ function showMonumentPopup(name, stats) {
     const popNotesList = document.getElementById('pop-notes');
 
     if (hasDoodle) {
-        popDoodle.src = `http://localhost:5050/doodles/${doodleInfo.short_name}.png`;
+        popDoodle.src = `./doodles/${doodleInfo.short_name}.png`;
         popPeriod.textContent = doodleInfo.period || 'Unknown';
         popBuilder.textContent = doodleInfo.builder || 'Unknown';
         popStyle.textContent = doodleInfo.style || 'Varies';
@@ -587,7 +587,7 @@ function showMonumentPopup(name, stats) {
         }
     } else {
         const doodleShortName = circleDoodleMap[statCircle] || 'placeholder';
-        popDoodle.src = `http://localhost:5050/doodles/${doodleShortName}.png`;
+        popDoodle.src = `./doodles/${doodleShortName}.png`;
         popPeriod.textContent = 'Archaeological Specimen';
         popBuilder.textContent = 'Ancient Builders';
         popStyle.textContent = 'Indian Architectural Heritage';
