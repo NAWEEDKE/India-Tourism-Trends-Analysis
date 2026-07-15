@@ -975,6 +975,70 @@ h1.journal-title {
     h1.journal-title {
         font-size: 2rem;
     }
+
+    /* Mobile Tabs Fix: Horizontal scrollable tabs instead of vertical overlay */
+    .notebook-tabs {
+        position: static;
+        flex-direction: row;
+        width: calc(100% - 45px);
+        margin-left: 45px;
+        overflow-x: auto;
+        padding: 10px 10px 0 10px;
+        gap: 5px;
+        background: transparent;
+        /* hide scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        border-bottom: 2px solid #d3cbb5;
+        margin-bottom: 10px;
+    }
+    .notebook-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-link {
+        width: auto;
+        white-space: nowrap;
+        padding: 10px 15px;
+        border-radius: 8px 8px 0 0;
+        border: 1px solid #d3cbb5;
+        border-bottom: none;
+        transform: translateY(2px);
+        box-shadow: none;
+        background: #e3dec9;
+    }
+
+    .tab-link:hover {
+        transform: translateY(0);
+    }
+
+    .tab-link.active {
+        transform: translateY(2px);
+        border-left: 1px solid #d3cbb5;
+        border-bottom: 2px solid var(--bg-paper);
+        background: var(--bg-paper);
+        box-shadow: none;
+        z-index: 10;
+    }
+    
+    .tab-home.active, .tab-season.active, .tab-monuments.active, 
+    .tab-circles.active, .tab-predict.active, .tab-notebook.active, 
+    .tab-guide.active {
+        border-left-color: #d3cbb5; /* reset the colored left border on mobile */
+        border-top: 3px solid var(--accent-terracotta); /* top color instead */
+    }
+    .tab-season.active { border-top-color: var(--accent-blue); }
+    .tab-monuments.active { border-top-color: var(--accent-moss); }
+    .tab-circles.active { border-top-color: var(--accent-mustard); }
+    .tab-notebook.active { border-top-color: var(--accent-moss); }
+    .tab-guide.active { border-top-color: var(--ink-medium); }
+
+    .paper-content {
+        margin-left: 50px;
+        margin-right: 15px;
+        padding: 15px;
+        min-height: auto;
+    }
 }
 
 @media (max-width: 576px) {
@@ -989,11 +1053,16 @@ h1.journal-title {
     .notebook-spine {
         display: none;
     }
+    
+    .notebook-tabs {
+        margin-left: 0;
+        width: 100%;
+    }
 
     .paper-content {
         margin-left: 0;
         margin-right: 0;
-        padding: 15px;
+        padding: 10px;
     }
 
     .paper-content::before {
