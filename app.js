@@ -787,7 +787,7 @@ async function initPredictPage() {
                 const foreignPct = totalAll > 0 ? ((totalFor / totalAll) * 100).toFixed(1) : '0.0';
 
                 resultEl.innerHTML = `
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+                    <div class="predict-results-grid">
                         <div class="specimen-card" style="padding:14px;">
                             <span style="font-size:0.7rem;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.04em;">Domestic ${year}</span>
                             <div style="font-size:1.5rem;font-weight:800;color:var(--accent-terracotta);margin:4px 0 2px;">${formatNum(totalDom)}</div>
