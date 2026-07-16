@@ -1177,3 +1177,48 @@ h1.journal-title {
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
+
+/* ==========================================================================
+   Mobile Grid Layout Fixes
+   ========================================================================== */
+.predict-results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+    .vis-row.predict-layout,
+    .vis-row.seasonality-row {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .predict-results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .heatmap-container {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .modal-sheet {
+        display: flex;
+        flex-direction: column;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    
+    .modal-left, .modal-right {
+        width: 100% !important;
+        border-right: none !important;
+        padding: 10px 0 !important;
+    }
+    
+    .modal-right {
+        border-top: 1px dashed var(--paper-line);
+        margin-top: 10px;
+    }
+}
