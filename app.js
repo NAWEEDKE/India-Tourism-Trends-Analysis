@@ -749,7 +749,10 @@ async function initPredictPage() {
                     
                     // Add seasonality curve (peak in winter/spring)
                     const seasonality = [1.2, 1.15, 1.0, 0.6, 0.55, 0.6, 0.8, 0.85, 0.8, 1.1, 1.3, 1.4];
-                    const predicted_domestic = seasonality.map(s => Math.round(avgMonthly * s * (0.9 + Math.random()*0.2)));
+                    const predicted_domestic = seasonality.map((s, mIdx) => {
+                        const deterministicRandom = ((year + mIdx * 7) % 20) / 100; // 0.0 to 0.19
+                        return Math.round(avgMonthly * s * (0.9 + deterministicRandom));
+                    });
                     
                     data = {
                         months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -849,3 +852,4 @@ async function initPredictPage() {
         });
     }
 }
+
